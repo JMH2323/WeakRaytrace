@@ -1,0 +1,6 @@
+# ninja log v5
+12	1349	7297205382570690	build.ninja	ccb2591e8934f0bf
+1	2973	7297175488934038	CMakeFiles/WeakRaytrace.dir/main.cpp.obj	70731c915fcdffea
+56	1833	7297181425204539	WeakRaytrace.exe	40a202f7ee81d4a5
+16	4487	7297206681776407	CMakeFiles/WeakRaytrace.dir/main.cpp.obj	70731c915fcdffea
+4491	5279	7297206686646401	WeakRaytrace.exe	40a202f7ee81d4a5

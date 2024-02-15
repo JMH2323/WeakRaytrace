@@ -1,0 +1,3 @@
+C:/Users/johnm/CLionProjects/WeakRaytrace/cmake-build-debug/CMakeFiles/WeakRaytrace.dir
+C:/Users/johnm/CLionProjects/WeakRaytrace/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/johnm/CLionProjects/WeakRaytrace/cmake-build-debug/CMakeFiles/rebuild_cache.dir
