@@ -9,7 +9,7 @@ add_executable(WeakRaytrace main.cpp
 
 add_custom_command(
         TARGET WeakRaytrace POST_BUILD
-        COMMAND WeakRaytrace > image.ppm
+        COMMAND WeakRaytrace > SimpleYellowSphere.ppm
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generate image.ppm"
+        COMMENT "Generate SimpleYellowSphere.ppm"
 )
