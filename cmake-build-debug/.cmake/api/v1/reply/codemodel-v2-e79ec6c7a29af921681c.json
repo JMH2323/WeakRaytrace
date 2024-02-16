@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/johnm/CLionProjects/WeakRaytrace/cmake-build-debug",
-		"source" : "C:/Users/johnm/CLionProjects/WeakRaytrace"
+		"build" : "D:/11Code/C++/WeakRaytrace/WeakRaytrace/cmake-build-debug",
+		"source" : "D:/11Code/C++/WeakRaytrace/WeakRaytrace"
 	},
 	"version" : 
 	{
