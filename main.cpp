@@ -1,36 +1,32 @@
-#include <iostream>
-#include "color.h"
-#include "ray.h"
-#include "vec3.h"
 
+
+#include "WeakRaytrace.h"
+#include "color.h"
+#include "hittable.h"
+#include "hittable_list.h"
+#include "sphere.h"
+
+#include <iostream>
 
 ////// Environment (colors, shapes) //////
 
-// Creating a sphere by checking if our ray crosses the sphere.
-// We translate the equation of a sphere: x^2+y^2+z^2 = r^2 to ray-sphere intersection values
-// Values: a = b*b ; b = 2b * (A-C) ; c = (A-C) * (A-C) - r^2
-bool hit_sphere(const point3& center, double radius, const ray& r) {
-
-    vec3 oc = r.origin() - center;
-    auto a = dot(r.direction(), r.direction());
-    auto b = 2.0 * dot(oc, r.direction());
-    auto c = dot(oc, oc) - radius*radius;
-    auto discriminant = b*b - 4*a*c;
-    return (discriminant >= 0);
-}
 
 
-color ray_color(const ray& r){
 
-    // Checking for sphere collision
-    if (hit_sphere(point3(0,0,-1), 0.5, r))
-        return color(1,1,0);
 
-    // Setting the color which the reay will return using lerp (linear interpolation)
+color ray_color(const ray& r, const hittable& world) {
+
+    // If ray hits an object, return its color
+    hit_record rec;
+    if (world.hit(r, 0, infinity, rec)) {
+        return 0.5 * (rec.normal + color(1,1,1));
+    }
+
+    // Setting the back color which the ray will return using lerp (linear interpolation)
     // The lerp function: blendedValue = (1 - a) * startValue + a * endValue
     vec3 unit_direction = unit_vector(r.direction());
     auto a = 0.5*(unit_direction.y() + 1.0);
-    return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.7,0.5,1.0);
+    return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5,0.7,1.0);
 
 }
 
@@ -39,12 +35,19 @@ int main() {
     ////// Image //////
 
     auto aspect_ratio = 16.0 / 9.0;
-    int image_width = 400;
+    int image_width = 800;
 
     // Calculate the image height, and ensure that it's at least 1.
     int image_height = static_cast<int>(image_width / aspect_ratio);
     image_height = (image_height < 1) ? 1 : image_height;
 
+
+    ////// World //////
+
+    hittable_list world;
+
+    world.add(make_shared<sphere>(point3(0,0,-1), 0.5));
+    world.add(make_shared<sphere>(point3(0,-100.5,-1), 100));
 
     ////// Camera //////
 
@@ -58,7 +61,7 @@ int main() {
 
     // Calculate vectors across horizontal and down vertical viewpoint edges
     auto viewport_u = vec3(viewport_width, 0, 0);
-    auto viewport_v = vec3(0, viewport_height, 0);
+    auto viewport_v = vec3(0, -viewport_height, 0);
 
     // Calculate the horizontal and vertical delta vectors (done on the pixel-level)
     auto pixel_delta_u = viewport_u / image_width;
@@ -84,7 +87,7 @@ int main() {
             auto ray_direction = pixel_center - camera_center;
             ray r(camera_center, ray_direction);
 
-            color pixel_color = ray_color(r);
+            color pixel_color = ray_color(r, world);
             write_color(std::cout, pixel_color);
         }
     }
