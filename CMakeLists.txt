@@ -9,7 +9,8 @@ add_executable(WeakRaytrace main.cpp
         hittable_list.h
         hittable.h
         ray.h
-        sphere.h)
+        sphere.h
+        interval.h)
 
 add_custom_command(
         TARGET WeakRaytrace POST_BUILD
