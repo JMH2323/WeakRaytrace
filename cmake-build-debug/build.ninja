@@ -67,7 +67,7 @@ build WeakRaytrace.exe: CXX_EXECUTABLE_LINKER__WeakRaytrace_Debug CMakeFiles/Wea
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\WeakRaytrace.dir
-  POST_BUILD = cmd.exe /C "cd /D C:\Users\johnm\CLionProjects\WeakRaytrace\cmake-build-debug && C:\Users\johnm\CLionProjects\WeakRaytrace\cmake-build-debug\WeakRaytrace.exe > test.ppm"
+  POST_BUILD = cmd.exe /C "cd /D C:\Users\johnm\CLionProjects\WeakRaytrace\cmake-build-debug && C:\Users\johnm\CLionProjects\WeakRaytrace\cmake-build-debug\WeakRaytrace.exe > test.ppm && C:\Users\johnm\CLionProjects\WeakRaytrace\cmake-build-debug\WeakRaytrace.exe > AntiAliasing.ppm"
   PRE_LINK = cd .
   TARGET_FILE = WeakRaytrace.exe
   TARGET_IMPLIB = libWeakRaytrace.dll.a

@@ -14,9 +14,14 @@ add_executable(WeakRaytrace main.cpp
         camera.h)
 
 add_custom_command(
-               
+
         TARGET WeakRaytrace POST_BUILD
         COMMAND WeakRaytrace > test.ppm
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generate test.ppm"
+
+        TARGET WeakRaytrace POST_BUILD
+        COMMAND WeakRaytrace > AntiAliasing.ppm
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generate AA.ppm"
 )
