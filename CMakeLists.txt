@@ -10,11 +10,13 @@ add_executable(WeakRaytrace main.cpp
         hittable.h
         ray.h
         sphere.h
-        interval.h)
+        interval.h
+        camera.h)
 
 add_custom_command(
+               
         TARGET WeakRaytrace POST_BUILD
-        COMMAND WeakRaytrace > BigSphereSmallSphere.ppm
+        COMMAND WeakRaytrace > test.ppm
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generate BSSM.ppm"
+        COMMENT "Generate test.ppm"
 )
