@@ -19,6 +19,7 @@ public:
     double aspect_ratio = 1.0;  // Ratio(width over height)
     int    image_width  = 100;  // Rendered pixel count
     int    samples_per_pixel = 10; // Number of random samples per pixel (blur)
+    int max_depth = 10; // Maximum number of rays bounces
 
     void render(const hittable& world) {
 
@@ -32,7 +33,8 @@ public:
                 color pixel_color(0,0,0);
                 for (int sample = 0; sample < samples_per_pixel; ++sample) {
                     ray r = get_ray(i, j);
-                    pixel_color += ray_color(r, world);
+                    // pixel color includes world, the ray, maximum bounces
+                    pixel_color += ray_color(r, max_depth, world);
                 }
 
                 write_color(std::cout, pixel_color, samples_per_pixel);
@@ -101,12 +103,20 @@ vec3 pixel_sample_square() const {
     return (px * pixel_delta_u) + (py * pixel_delta_v);
 }
 
-color ray_color(const ray& r, const hittable& world) const {
+    color ray_color(const ray& r, int depth, const hittable& world) const {
 
-        // If ray hits an object, return its color
+        // If we've hit the ray bounce limit, return null light.
+        if (depth <= 0)
+            return color(0,0,0);
         hit_record rec;
-        if (world.hit(r, interval(0,infinity), rec)) {
-            return 0.5 * (rec.normal + color(1,1,1));
+
+        // If ray hits an object, return its color, reflection, or other values
+        if (world.hit(r, interval(0.001, infinity), rec)) {
+
+            // example of diffusion. Returning 33.3% of color on hit, expecting a dark gray color.
+            vec3 direction = rec.normal + random_unit_vector();
+            return 0.333 * ray_color(ray(rec.p, direction), depth-1, world);
+
         }
 
         // Setting the back color which the ray will return using lerp (linear interpolation)

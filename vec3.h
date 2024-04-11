@@ -64,7 +64,18 @@ public:
     }
 };
 
-// point3 is just an alias for vec3, but useful for geometric clarity in the code.
+// Getting random vectors to be used in simple diffusion. returns xyz
+static vec3 randomVec() {
+    return vec3(random_double(), random_double(), random_double());
+}
+
+static vec3 randomVec(double min, double max) {
+    return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
+}
+
+
+
+// point3 is just an alias for vec3, but useful for geometric clarity.
 using point3 = vec3;
 
 
@@ -124,6 +135,29 @@ inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
 
+// Find a random point from within the sphere and check if its valid (inside and not outside the sphere)
+inline vec3 random_in_unit_sphere() {
+    while (true) {
+        auto p = randomVec(-1, 1);
+        if (p.length_squared() < 1)
+            return p;
+    }
+}
+
+inline vec3 random_unit_vector() {
+    return unit_vector(random_in_unit_sphere());
+}
+
+
+// Take the dot product of the surface normal and r vector to check its in the correct hemisphere.
+// dot positive = correct, negative = needs to be inverted
+inline vec3 random_on_hemisphere(const vec3& normal) {
+    vec3 on_unit_sphere = random_unit_vector();
+    if (dot(on_unit_sphere, normal) > 0.0) // In the same hemisphere as the normal
+        return on_unit_sphere;
+    else
+        return -on_unit_sphere;
+}
 
 
 #endif //WEAKRAYTRACE_VEC3_H

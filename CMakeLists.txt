@@ -21,7 +21,7 @@ add_custom_command(
         COMMENT "Generate test.ppm"
 
         TARGET WeakRaytrace POST_BUILD
-        COMMAND WeakRaytrace > AntiAliasing.ppm
+        COMMAND WeakRaytrace > Diffusion3.ppm
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generate AA.ppm"
+        COMMENT "Generate DiffGamCor.ppm"
 )
