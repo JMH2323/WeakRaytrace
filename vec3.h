@@ -62,6 +62,13 @@ public:
     double length_squared() const {
         return e[0]*e[0] + e[1]*e[1] + e[2]*e[2];
     }
+
+    // Checks if the vector is close to zero to prevent zero scatter direction and infinities
+    bool near_zero() const {
+        auto s = 1e-8;
+        return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
+    }
+
 };
 
 // Getting random vectors to be used in simple diffusion. returns xyz
@@ -157,6 +164,11 @@ inline vec3 random_on_hemisphere(const vec3& normal) {
         return on_unit_sphere;
     else
         return -on_unit_sphere;
+}
+
+// Reflection function. Takes a ray direction computation of v + 2b
+inline vec3 reflect(const vec3& v, const vec3& n) {
+    return v - 2*dot(v,n)*n;
 }
 
 

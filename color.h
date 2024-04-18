@@ -14,6 +14,7 @@ using color = vec3;
 
 inline double linear_to_gamma(double linear_component)
 {
+    // handle negative cases and treat gamma 2 inverse (1/gamma) as square root.
     if (linear_component > 0)
         return sqrt(linear_component);
 

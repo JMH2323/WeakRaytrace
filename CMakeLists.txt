@@ -11,7 +11,9 @@ add_executable(WeakRaytrace main.cpp
         ray.h
         sphere.h
         interval.h
-        camera.h)
+        camera.h
+        WeakRaytrace.h
+        material.h)
 
 add_custom_command(
 
@@ -20,8 +22,5 @@ add_custom_command(
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generate test.ppm"
 
-        TARGET WeakRaytrace POST_BUILD
-        COMMAND WeakRaytrace > Diffusion3.ppm
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generate DiffGamCor.ppm"
+
 )

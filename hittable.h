@@ -7,11 +7,15 @@
 
 #include "ray.h"
 
+// Forward declare material
+class material;
+
 class hit_record {
 public:
     point3 p;
     vec3 normal;
     double t;
+    shared_ptr<material> mat;
 
     // Set up to determine if we are hitting the inside or outside based off -
     // the normal pointing "outward" or against the ray.

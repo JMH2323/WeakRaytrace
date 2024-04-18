@@ -9,6 +9,7 @@
 
 #include "color.h"
 #include "hittable.h"
+#include "material.h"
 #include <iostream>
 
 class camera {
@@ -114,8 +115,14 @@ vec3 pixel_sample_square() const {
         if (world.hit(r, interval(0.001, infinity), rec)) {
 
             // example of diffusion. Returning 33.3% of color on hit, expecting a dark gray color.
-            vec3 direction = rec.normal + random_unit_vector();
-            return 0.333 * ray_color(ray(rec.p, direction), depth-1, world);
+            //vec3 direction = rec.normal + random_unit_vector();
+            //return 0.333 * ray_color(ray(rec.p, direction), depth-1, world);
+
+            ray scattered;
+            color attenuation;
+            if (rec.mat->scatter(r, rec, attenuation, scattered))
+                return attenuation * ray_color(scattered, depth-1, world);
+            return color(0,0,0);
 
         }
 

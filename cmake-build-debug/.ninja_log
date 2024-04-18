@@ -1,7 +1,7 @@
 # ninja log v5
-3	788	7345485989906274	build.ninja	ccb2591e8934f0bf
-10	4218	7345481202893343	CMakeFiles/WeakRaytrace.dir/main.cpp.obj	70731c915fcdffea
-4219	54805	7345481208573209	WeakRaytrace.exe	4a109421bbbdc802
-20	4455	7345485989906274	build.ninja	ccb2591e8934f0bf
-15	8342	7345486078316039	CMakeFiles/WeakRaytrace.dir/main.cpp.obj	70731c915fcdffea
+1	646	7351598079013173	build.ninja	ccb2591e8934f0bf
+21	5148	7351594493356932	CMakeFiles/WeakRaytrace.dir/main.cpp.obj	70731c915fcdffea
 8346	61891	7345486090715004	WeakRaytrace.exe	89758b8beec00a62
+8	6111	7351601656167610	CMakeFiles/WeakRaytrace.dir/main.cpp.obj	70731c915fcdffea
+8	4482	7351604073222145	CMakeFiles/WeakRaytrace.dir/main.cpp.obj	70731c915fcdffea
+4483	38274	7351604077625930	WeakRaytrace.exe	b1f4444a48a2e7c9

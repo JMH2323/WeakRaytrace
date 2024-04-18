@@ -28,6 +28,10 @@ bool hit_sphere(const point3& center, double radius, const ray& r) {
 */
 // A vector dotted with itself is equal to the squared length.
 // We can set b = 2h and simplify the expression.
+
+    sphere(const point3& center, double radius, shared_ptr<material> mat)
+            : center(center), radius(fmax(0,radius)), mat(mat) {}
+
     sphere(point3 _center, double _radius) : center(_center), radius(_radius) {}
 
     bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
@@ -56,12 +60,16 @@ bool hit_sphere(const point3& center, double radius, const ray& r) {
         vec3 outward_normal = (rec.p - center) / radius;
         rec.set_face_normal(r, outward_normal);
 
+        // Determining material
+        rec.mat = mat;
+
         return true;
     }
 
 private:
     point3 center;
     double radius;
+    shared_ptr<material> mat;
 };
 
 #endif //WEAKRAYTRACE_SPHERE_H
