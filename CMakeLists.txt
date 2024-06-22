@@ -18,7 +18,7 @@ add_executable(WeakRaytrace main.cpp
 add_custom_command(
 
         TARGET WeakRaytrace POST_BUILD
-        COMMAND WeakRaytrace > test.ppm
+        COMMAND WeakRaytrace > FuzzyMetal.ppm
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generate test.ppm"
 

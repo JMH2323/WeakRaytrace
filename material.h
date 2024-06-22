@@ -49,18 +49,23 @@ private:
 
 class metal : public material {
 public:
-    metal(const color& albedo) : albedo(albedo) {}
+    metal(const color& albedo, double fuzz) : albedo(albedo), fuzz(fuzz < 1 ? fuzz : 1) {}
 
     bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered)
     const override {
         vec3 reflected = reflect(r_in.direction(), rec.normal);
+        reflected = unit_vector(reflected) + (fuzz * random_unit_vector());
         scattered = ray(rec.p, reflected);
         attenuation = albedo;
-        return true;
+        return (dot(scattered.direction(), rec.normal) > 0);
     }
 
 private:
     color albedo;
+    // Fuzz: randomize the reflected using a small sphere and choosing a new endpoint within it.
+    // bigger spheres result in more disarray or fuzz. Fuzz also consistently scales with the reflection vector.
+    // This is done by normalizing the ray.
+    double fuzz;
 };
 
 #endif //WEAKRAYTRACE_MATERIAL_H
