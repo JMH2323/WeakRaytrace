@@ -33,7 +33,7 @@ public:
         auto scatter_direction = rec.normal + random_unit_vector();
 
 
-        // Catch sum of zero scatter directions.
+        // Catch sum of zero scatter directions, preventing NaNs.
         if (scatter_direction.near_zero())
             scatter_direction = rec.normal;
 

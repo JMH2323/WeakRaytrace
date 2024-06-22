@@ -64,7 +64,10 @@ public:
     }
 
     // Checks if the vector is close to zero to prevent zero scatter direction and infinities
+    // Expanded: if the random unit vector we generate for scatter directions is the exact opposite
+    // of the normal vector, a sum of zero results in NaNs/infinities
     bool near_zero() const {
+        // return true if vector is close to zero in all dimensions
         auto s = 1e-8;
         return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
     }
@@ -167,6 +170,9 @@ inline vec3 random_on_hemisphere(const vec3& normal) {
 }
 
 // Reflection function. Takes a ray direction computation of v + 2b
+// Expanded: a reflectis just v+2b; n is a unit vector, v may/may not be,
+// To get the vector b, we scale the normal vector by v's projection onto n (dot)
+// finally since v is entering the surface, and b should reflect, negate the length.
 inline vec3 reflect(const vec3& v, const vec3& n) {
     return v - 2*dot(v,n)*n;
 }
